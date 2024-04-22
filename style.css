@@ -1,0 +1,61 @@
+body {
+  background-color: #f0f2f5;
+  font-family: "Roboto", sans-serif;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.form-control {
+  border-radius: 20px;
+}
+
+.control__indicator {
+  border-radius: 50%;
+}
+
+li {
+  list-style: none;
+  margin: 20px 0 20px 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  margin-left: -300px;
+  transition: 0.4s;
+}
+
+.bg-sidebar {
+  background: #5f8d4e;
+}
+
+.active-main-content {
+  margin-left: 250px;
+}
+
+.active-sidebar {
+  margin-left: 0;
+}
+
+#main-content {
+  transition: 0.4s;
+}
