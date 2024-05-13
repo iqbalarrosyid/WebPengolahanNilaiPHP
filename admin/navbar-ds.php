@@ -1,29 +1,25 @@
-<div>
-  <div class="sidebar p-4 bg-sidebar" id="sidebar">
-    <h4 class="mb-5 text-white">Spetaq.ac</h4>
-    <li>
-      <a class="text-white" href="dashboard.php">
-        <i class="fa-solid fa-house"></i>
-        Dashboard
-      </a>
-    </li>
-    <li>
-      <a class="text-white" href="list-siswa.php">
-        <i class="fa-solid fa-user"></i>
-        Siswa
-      </a>
-    </li>
-    <li>
-      <a class="text-white" href="list-guru.php">
-        <i class="fa-solid fa-user"></i>
-        Guru
-      </a>
-    </li>
-    <li>
-      <a class="text-white" href="../logout.php">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        Log Out
-      </a>
-    </li>
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-2">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="dashboard.php">Spetaq.ac</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="list-guru.php">Guru</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="list-siswa.php">Siswa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../logout.php">Log Out</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
   </div>
-</div>
+</nav>

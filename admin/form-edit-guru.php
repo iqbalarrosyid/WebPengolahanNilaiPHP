@@ -2,19 +2,15 @@
 
 include("../database.php");
 
-
 if (!isset($_GET['id'])) {
     header('Location: list-guru.php');
 }
 
-
 $id = $_GET['id'];
-
 
 $sql = "SELECT * FROM guru WHERE id_guru=$id limit 1";
 $query = mysqli_query($db, $sql);
 $guru = mysqli_fetch_array($query);
-
 
 if (mysqli_num_rows($query) < 1) {
     die("data tidak ditemukan....");
@@ -22,29 +18,30 @@ if (mysqli_num_rows($query) < 1) {
 
 if (isset($_POST['simpan'])) {
 
-
     $id = $_POST['id'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $nama = $_POST['nama'];
     $mapel = $_POST['mapel'];
     $no_telp = $_POST['no_telp'];
-    $hash_password = hash("sha256", $password);
 
+    if ($password != $guru['password']) {
+        $hash_password = hash("sha256", $password);
+    } else {
+        $hash_password = $guru['password'];
+    }
 
     $sql = "UPDATE guru SET username='$username', password='$hash_password', nama='$nama'
         , mapel='$mapel', no_telp='$no_telp' WHERE id_guru='$id'";
     $query = mysqli_query($db, $sql);
 
-
     if ($query) {
-
         header('Location: list-guru.php');
     } else {
-
         die("Gagal menyimpan perubahan....");
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +51,7 @@ if (isset($_POST['simpan'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Siswa</title>
+    <title>Edit Guru</title>
     <?php include "css.php"; ?>
 </head>
 
@@ -72,8 +69,8 @@ if (isset($_POST['simpan'])) {
                 <input type="password" name="password" class="form-control mt-2 mb-4" value="<?php echo $guru['password'] ?>" placeholder="Isikan Password" required>
                 <label for="nama">Nama</label>
                 <input type="text" name="nama" class="form-control mt-2 mb-4" value="<?php echo $guru['nama'] ?>" placeholder="Isikan Nama" required>
-                <label for="nama">Mapel</label>
-                <input type="text" name="mapel" class="form-control mt-2 mb-4" value="<?php echo $guru['mapel'] ?>" placeholder="Isikan Kelas" required>
+                <label for="mapel">Mapel</label>
+                <input type="text" name="mapel" class="form-control mt-2 mb-4" value="<?php echo $guru['mapel'] ?>" placeholder="Isikan Mapel" required>
                 <label for="no_hp">No HP</label>
                 <input type="text" name="no_telp" class="form-control mt-2 mb-4" value="<?php echo $guru['no_telp'] ?>" placeholder="Isikan No Telp" required>
                 <div class="form-inline">

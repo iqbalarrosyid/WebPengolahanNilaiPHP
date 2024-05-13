@@ -2,19 +2,15 @@
 
 include("../database.php");
 
-
 if (!isset($_GET['id'])) {
     header('Location: list-siswa.php');
 }
 
-
 $id = $_GET['id'];
-
 
 $sql = "SELECT * FROM siswa WHERE id_siswa=$id limit 1";
 $query = mysqli_query($db, $sql);
 $siswa = mysqli_fetch_array($query);
-
 
 if (mysqli_num_rows($query) < 1) {
     die("data tidak ditemukan....");
@@ -22,26 +18,26 @@ if (mysqli_num_rows($query) < 1) {
 
 if (isset($_POST['simpan'])) {
 
-
     $id = $_POST['id'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $nama = $_POST['nama'];
     $kelas = $_POST['kelas'];
     $no_telp = $_POST['no_telp'];
-    $hash_password = hash("sha256", $password);
 
+    if ($password != $siswa['password']) {
+        $hash_password = hash("sha256", $password);
+    } else {
+        $hash_password = $siswa['password'];
+    }
 
     $sql = "UPDATE siswa SET username='$username', password='$hash_password', nama='$nama'
         , kelas='$kelas', no_telp='$no_telp' WHERE id_siswa='$id'";
     $query = mysqli_query($db, $sql);
 
-
     if ($query) {
-
         header('Location: list-siswa.php');
     } else {
-
         die("Gagal menyimpan perubahan....");
     }
 }

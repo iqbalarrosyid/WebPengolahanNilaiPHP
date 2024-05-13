@@ -28,7 +28,6 @@ if (isset($_GET['id'])) {
   <body>
     <?php include "navbar-ds.php"; ?>
     <div id="main-content" class="p-4 p-md-5 pt-5">
-      <?php include "../button.php"; ?>
       <div class="card mb-2">
         <div class="card-body shadow">
           <h2>Data Nilai</h2>
@@ -88,8 +87,8 @@ if (isset($_GET['id'])) {
       </div>
     </div>
     </div>
-    <script src="../bs/js/bootstrap.js"></script>
-    <script src="../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
   </body>
 
   </html>

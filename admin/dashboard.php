@@ -1,31 +1,29 @@
-
-
 <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Spetaq | Admin</title>
-        <?php include "css.php" ?>
-      </head>
-    
-      <body>
-        <?php include"navbar-ds.php"; ?>
-        
-        <div class="p-4" id="main-content">
-          <?php include "../button.php"; ?>
-          <div class="card mt-5">
-            <div class="card-body shadow">
-              <h4>Selamat datang di halaman Admin</h4>
-              <p>
-                Sebagai admin, anda dapat mengolah data guru dan siswa, baik menambah, menghapus, dan mengedit.
-              </p>
-            </div>
-          </div>
-        </div>
-    
-        
-        <script src="../bs/js/bootstrap.js"></script>
-        <script src="../script.js"></script>
-      </body>
-    </html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spetaq | Admin</title>
+  <?php include "css.php" ?>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+
+</head>
+
+<body>
+  <?php include "navbar-ds.php"; ?>
+
+  <div class="p-4" id="main-content">
+    <div class="card mt-5">
+      <div class="card-body shadow">
+        <h4>Selamat datang di halaman Admin</h4>
+        <p>
+          Sebagai admin, anda dapat mengolah data guru dan siswa, baik menambah, menghapus, dan mengedit.
+        </p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>
