@@ -3,7 +3,7 @@
 include("../database.php");
 
 
-if(!isset($_GET['id'])){
+if (!isset($_GET['id'])) {
     header('Location: list-siswa.php');
 }
 
@@ -16,14 +16,41 @@ $query = mysqli_query($db, $sql);
 $siswa = mysqli_fetch_array($query);
 
 
-if(mysqli_num_rows($query) < 1){
+if (mysqli_num_rows($query) < 1) {
     die("data tidak ditemukan....");
+}
+
+if (isset($_POST['simpan'])) {
+
+
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $nama = $_POST['nama'];
+    $kelas = $_POST['kelas'];
+    $no_telp = $_POST['no_telp'];
+    $hash_password = hash("sha256", $password);
+
+
+    $sql = "UPDATE siswa SET username='$username', password='$hash_password', nama='$nama'
+        , kelas='$kelas', no_telp='$no_telp' WHERE id_siswa='$id'";
+    $query = mysqli_query($db, $sql);
+
+
+    if ($query) {
+
+        header('Location: list-siswa.php');
+    } else {
+
+        die("Gagal menyimpan perubahan....");
+    }
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,14 +58,15 @@ if(mysqli_num_rows($query) < 1){
     <title>Edit Siswa</title>
     <?php include "css.php"; ?>
 </head>
+
 <body>
-<div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Edit Data Siswa</h2>
         <a href="list-siswa.php" class="btn btn-success">Lihat Data</a>
         <hr>
-        <form action="proses-edit-siswa.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
-                <input type="hidden" name="id" value="<?php echo $siswa['id_siswa']?>"/>
+                <input type="hidden" name="id" value="<?php echo $siswa['id_siswa'] ?>" />
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control mt-2 mb-4" value="<?php echo $siswa['username'] ?>" placeholder="Isikan Username" required>
                 <label for="password">Password</label>
@@ -55,4 +83,5 @@ if(mysqli_num_rows($query) < 1){
             </fieldset>
         </form>
 </body>
+
 </html>

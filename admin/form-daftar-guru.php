@@ -1,4 +1,26 @@
-<?php include("../database.php"); ?>
+<?php
+include("../database.php");
+
+if (isset($_POST['simpan'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $nama = $_POST['nama'];
+    $mapel = $_POST['mapel'];
+    $no_telp = $_POST['no_telp'];
+
+    $hash_password = hash("sha256", $password);
+
+    $sql = "INSERT INTO guru (username, password, nama, mapel, no_telp) 
+        VALUE ('$username', '$hash_password', '$nama', '$mapel', '$no_telp')";
+    $query = mysqli_query($db, $sql);
+
+    if ($query) {
+        header('Location: list-guru.php');
+    } else {
+        die("gagal menambah...");
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +37,7 @@
         <h2 class="mb-4">Tambah Data Guru</h2>
         <a href="list-guru.php" class="btn btn-success">Lihat Data</a>
         <hr>
-        <form action="proses-daftar-guru.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control mt-2 mb-4" placeholder="Isikan Username" required>

@@ -3,7 +3,7 @@
 include("../database.php");
 
 
-if(!isset($_GET['id'])){
+if (!isset($_GET['id'])) {
     header('Location: list-guru.php');
 }
 
@@ -16,14 +16,40 @@ $query = mysqli_query($db, $sql);
 $guru = mysqli_fetch_array($query);
 
 
-if(mysqli_num_rows($query) < 1){
+if (mysqli_num_rows($query) < 1) {
     die("data tidak ditemukan....");
 }
 
+if (isset($_POST['simpan'])) {
+
+
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $nama = $_POST['nama'];
+    $mapel = $_POST['mapel'];
+    $no_telp = $_POST['no_telp'];
+    $hash_password = hash("sha256", $password);
+
+
+    $sql = "UPDATE guru SET username='$username', password='$hash_password', nama='$nama'
+        , mapel='$mapel', no_telp='$no_telp' WHERE id_guru='$id'";
+    $query = mysqli_query($db, $sql);
+
+
+    if ($query) {
+
+        header('Location: list-guru.php');
+    } else {
+
+        die("Gagal menyimpan perubahan....");
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,14 +57,15 @@ if(mysqli_num_rows($query) < 1){
     <title>Edit Siswa</title>
     <?php include "css.php"; ?>
 </head>
+
 <body>
-<div id="content" class="p-4 p-md-5 pt-5">
+    <div id="content" class="p-4 p-md-5 pt-5">
         <h2 class="mb-4">Edit Data Guru</h2>
         <a href="list-guru.php" class="btn btn-success">Lihat Data</a>
         <hr>
-        <form action="proses-edit-guru.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
-                <input type="hidden" name="id" value="<?php echo $guru['id_guru']?>"/>
+                <input type="hidden" name="id" value="<?php echo $guru['id_guru'] ?>" />
                 <label for="username">Username</label>
                 <input type="text" name="username" class="form-control mt-2 mb-4" value="<?php echo $guru['username'] ?>" placeholder="Isikan Username" required>
                 <label for="password">Password</label>
@@ -55,4 +82,5 @@ if(mysqli_num_rows($query) < 1){
             </fieldset>
         </form>
 </body>
+
 </html>

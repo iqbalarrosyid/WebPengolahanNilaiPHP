@@ -1,21 +1,20 @@
 <?php
 include("../database.php");
 
-// Periksa apakah parameter ID diteruskan melalui URL
 if (isset($_GET['id'])) {
     $id_nilai = $_GET['id'];
+    $stmt = $db->prepare("SELECT * FROM nilai WHERE id_nilai = ?");
+    $stmt->bind_param('i', $id_nilai);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $nilai = $result->fetch_assoc();
 
-    // Periksa apakah data nilai dengan ID yang diberikan ada di database
-    $sql = "SELECT * FROM nilai WHERE id_nilai = $id_nilai";
-    $query = mysqli_query($db, $sql);
-    $nilai = mysqli_fetch_assoc($query);
-
-    // Periksa apakah data nilai ditemukan
     if ($nilai) {
-        // Ambil data siswa terkait untuk menampilkan informasi tambahan (jika diperlukan)
-        $sql_siswa = "SELECT * FROM siswa WHERE id_siswa = $nilai[id_siswa]";
-        $query_siswa = mysqli_query($db, $sql_siswa);
-        $siswa = mysqli_fetch_assoc($query_siswa);
+        $stmt_siswa = $db->prepare("SELECT * FROM siswa WHERE id_siswa = ?");
+        $stmt_siswa->bind_param('i', $nilai['id_siswa']);
+        $stmt_siswa->execute();
+        $result_siswa = $stmt_siswa->get_result();
+        $siswa = $result_siswa->fetch_assoc();
 ?>
 
         <!DOCTYPE html>
@@ -34,7 +33,7 @@ if (isset($_GET['id'])) {
                 <h2 class="mb-4">Edit Data Nilai</h2>
                 <a href="list-nilai.php" class="btn btn-success">Lihat Data</a>
                 <hr>
-                <form action="proses-edit-nilai.php" method="POST">
+                <form action="form-edit-nilai.php" method="POST">
                     <fieldset>
                         <input type="hidden" name="id_nilai" value="<?php echo $nilai['id_nilai']; ?>">
                         <label for="nama">Nama</label>
@@ -59,6 +58,21 @@ if (isset($_GET['id'])) {
 <?php
     } else {
         die("Data nilai tidak ditemukan.");
+    }
+} elseif (isset($_POST['simpan'])) {
+    $id_nilai = $_POST['id_nilai'];
+    $tugas = $_POST['tugas'];
+    $uts = $_POST['uts'];
+    $uas = $_POST['uas'];
+
+    $stmt = $db->prepare("UPDATE nilai SET tugas=?, uts=?, uas=? WHERE id_nilai=?");
+    $stmt->bind_param('sssi', $tugas, $uts, $uas, $id_nilai);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        header('Location: list-nilai.php');
+    } else {
+        die("Gagal mengedit nilai.");
     }
 } else {
     die("Akses dilarang.");

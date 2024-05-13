@@ -1,4 +1,29 @@
-<?php include("../database.php"); ?>
+<?php
+include("../database.php");
+
+
+
+if (isset($_POST['simpan'])) {
+
+
+    $id_siswa = $_POST['id_siswa'];
+    $tugas = $_POST['tugas'];
+    $uts = $_POST['uts'];
+    $uas = $_POST['uas'];
+
+
+    $sql = "INSERT INTO nilai 
+        VALUES ('','$id_siswa','$_SESSION[id_guru]','$tugas', '$uts', '$uas')";
+    $query = mysqli_query($db, $sql);
+
+
+    if ($query) {
+        header('Location: list-nilai.php');
+    } else {
+        die("gagal menambah...");
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +40,7 @@
         <h2 class="mb-4">Tambah Data Nilai</h2>
         <a href="list-nilai.php" class="btn btn-success">Lihat Data</a>
         <hr>
-        <form action="proses-daftar-nilai.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
                 <label for="nama">Nama</label>
                 <select name="id_siswa" id="" class="form-control mt-2 mb-4">
